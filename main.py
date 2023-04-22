@@ -85,7 +85,7 @@ def check_in():
     res = requests.post(url,data = json.dumps(data),headers = headers).json()
     message = res['message']
     checkinTime = res['list'][0]['time']
-    print(json.dumps(res, indent=1))
+    print(json.dumps(res['list'][0], indent=1))
     return message, checkinTime
 
 # 签到
