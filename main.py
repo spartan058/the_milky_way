@@ -85,6 +85,7 @@ def check_in():
     res = requests.post(url,data = json.dumps(data),headers = headers).json()
     message = res['message']
     checkinTime = res['list'][0]['time']
+    print(json.dumps(res, indent=1))
     return message, checkinTime
 
 # 签到
@@ -133,7 +134,7 @@ for i in range(len(user_ids)):
                    "color":"#173177"
                },
         "leftDays": {
-                   "value":float(leftDays),
+                   "value":int(float(leftDays)),
                    "color":"#173177"
                }
         }
