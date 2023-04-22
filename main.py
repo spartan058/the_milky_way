@@ -2,6 +2,7 @@ import os
 import math
 import random
 import requests
+import json
 
 from datetime import date, datetime
 from wechatpy import WeChatClient
@@ -20,6 +21,7 @@ citys = os.environ["CITY"].split(',')
 solarys = os.environ["SOLARY"].split(',')
 start_dates = os.environ["START_DATE"].split(',')
 birthdays = os.environ["BIRTHDAY"].split(',')
+cookies = os.environ["COOKIE"].split(',')
 
 
 # 获取天气和温度
@@ -71,6 +73,28 @@ def get_words():
 def get_random_color():
     return "#%06x" % random.randint(0, 0xFFFFFF)
 
+# 签到
+def check_in():
+    url = "https://glados.rocks/api/user/checkin"
+    headers = {
+        "cookie": cookies[0],
+        "content-type": "application/json;charset=UTF-8"
+    }
+    data = {"token": "glados.network"}
+    res = requests.post(url,data = json.dumps(data),headers = headers).json()
+    message = res['message']
+    return message
+
+# 签到
+def get_leftdays():
+    url = "https://glados.rocks/api/user/status"
+    headers = {
+        "cookie": cookies[0]
+    }
+    res = requests.get(url,headers = headers).json()
+    leftDays = res.data.leftDays
+    return leftDays
+
 
 client = WeChatClient(app_id, app_secret)
 wm = WeChatMessage(client)
@@ -92,6 +116,8 @@ for i in range(len(user_ids)):
     #     data["birthday_left"]['value'] = "今天是她的生日哦，快去一起甜蜜吧"
     # if get_solary(solarys[i]) == 0:
     #     data["solary"]['value'] = "今天发工资啦，快去犒劳一下自己吧"
-    data = {}
+    message = check_in()
+    leftDays = get_leftdays()
+    data = {"message": message, "leftDays": leftDays}
     res = wm.send_template(user_ids[i], template_ids[i], data)
     print(res)
