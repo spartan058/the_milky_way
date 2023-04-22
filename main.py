@@ -122,6 +122,9 @@ for i in range(len(user_ids)):
     timeInt = int(timeStr)
     ckTime = time.localtime(timeInt / 1000)
     checkinTime = time.strftime("%Y-%m-%d %H:%M:%S", ckTime)
+    print(timeInt)
+    print(ckTime)
+    print(ckTime)
     leftDays = get_leftdays()
     data = {
         "message": {
