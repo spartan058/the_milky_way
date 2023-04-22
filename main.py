@@ -120,11 +120,10 @@ for i in range(len(user_ids)):
     #     data["solary"]['value'] = "今天发工资啦，快去犒劳一下自己吧"
     message, timeStr = check_in()
     timeInt = int(timeStr)
-    ckTime = time.localtime(timeInt / 1000)
+    ckTime = time.localtime(int(timeInt / 1000))
     checkinTime = time.strftime("%Y-%m-%d %H:%M:%S", ckTime)
     print(timeInt)
-    print(ckTime)
-    print(ckTime)
+    print(int(timeInt / 1000))
     leftDays = get_leftdays()
     data = {
         "message": {
