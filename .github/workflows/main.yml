@@ -1,5 +1,9 @@
 name: morning
 on:
+  push:
+  pull_request:
+  watch:
+    types: [ started ]
   schedule:
   # UTC 时间的零点，北京时间的八点。但是由于 Github 同一时间任务太多，因此会有延迟
   - cron:  '0 0 * * *'
