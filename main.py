@@ -130,7 +130,7 @@ for i in range(len(user_ids)):
                    "color":"#173177"
                },
         "leftDays": {
-                   "value":int(leftDays),
+                   "value":float(leftDays),
                    "color":"#173177"
                }
         }
