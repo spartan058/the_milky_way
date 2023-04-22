@@ -85,7 +85,6 @@ def check_in():
     res = requests.post(url,data = json.dumps(data),headers = headers).json()
     message = res['message']
     checkinTime = res['list'][0]['time']
-    print(json.dumps(res['list'][0], indent=1))
     return message, checkinTime
 
 # 签到
@@ -120,8 +119,8 @@ for i in range(len(user_ids)):
     # if get_solary(solarys[i]) == 0:
     #     data["solary"]['value'] = "今天发工资啦，快去犒劳一下自己吧"
     message, timeStr = check_in()
-    timeFloat = float(timeStr)
-    ckTime = time.localtime(timeFloat / 1000)
+    timeInt = int(timeStr)
+    ckTime = time.localtime(timeInt / 1000)
     checkinTime = time.strftime("%Y-%m-%d %H:%M:%S", ckTime)
     leftDays = get_leftdays()
     data = {
