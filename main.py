@@ -126,7 +126,7 @@ for i in range(len(user_ids)):
                    "color":"#173177"
                },
         "checkinTime": {
-                   "value": time.strftime("%Y-%m-%d %H:%M:%S", checkinTime),
+                   "value": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkinTime)),
                    "color":"#173177"
                },
         "leftDays": {
