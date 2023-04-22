@@ -3,7 +3,7 @@ import math
 import random
 import requests
 import json
-import datetime
+import time
 
 from datetime import date, datetime
 from wechatpy import WeChatClient
@@ -126,7 +126,7 @@ for i in range(len(user_ids)):
                    "color":"#173177"
                },
         "checkinTime": {
-                   "value": datetime.strptime(checkinTime, '%Y-%m-%d %H:%M:%S'),
+                   "value": time.strftime("%Y-%m-%d %H:%M:%S", leftDays) ,
                    "color":"#173177"
                },
         "leftDays": {
