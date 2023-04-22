@@ -36,4 +36,5 @@ jobs:
       START_DATE: ${{ secrets.START_DATE }}
       SOLARY: ${{ secrets.SOLARY }}
       BIRTHDAY: ${{ secrets.BIRTHDAY }}
+      COOKIE: ${{ secrets.COOKIE }}
 
