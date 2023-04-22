@@ -118,7 +118,10 @@ for i in range(len(user_ids)):
     #     data["birthday_left"]['value'] = "今天是她的生日哦，快去一起甜蜜吧"
     # if get_solary(solarys[i]) == 0:
     #     data["solary"]['value'] = "今天发工资啦，快去犒劳一下自己吧"
-    message, checkinTime = check_in()
+    message, timeStr = check_in()
+    timeFloat = float(timeStr)
+    ckTime = time.localtime(timeFloat / 1000)
+    checkinTime = time.strftime("%Y-%m-%d %H:%M:%S", ckTime)
     leftDays = get_leftdays()
     data = {
         "message": {
@@ -126,7 +129,7 @@ for i in range(len(user_ids)):
                    "color":"#173177"
                },
         "checkinTime": {
-                   "value": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkinTime)),
+                   "value": checkinTime,
                    "color":"#173177"
                },
         "leftDays": {
