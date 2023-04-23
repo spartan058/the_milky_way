@@ -99,11 +99,12 @@ def get_leftdays():
 
 def utc2local():
     now_stamp = 1681453752005 / 1000
-    local_time = datetime.datetime.fromtimestamp(now_stamp)
-    utc_time = datetime.datetime.utcfromtimestamp(now_stamp)
+    local_time = datetime.fromtimestamp(now_stamp)
+    utc_time = datetime.utcfromtimestamp(now_stamp)
     offset = local_time - utc_time
     print(local_time)
     print(utc_time)
+    print(offset)
     local_st = offset
     return local_st
 
