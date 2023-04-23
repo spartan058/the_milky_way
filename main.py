@@ -97,6 +97,15 @@ def get_leftdays():
     leftDays = res['data']['leftDays']
     return leftDays
 
+def utc2local():
+    now_stamp = 1681453752005 / 1000
+    local_time = datetime.datetime.fromtimestamp(now_stamp)
+    utc_time = datetime.datetime.utcfromtimestamp(now_stamp)
+    offset = local_time - utc_time
+    print(local_time)
+    print(utc_time)
+    local_st = offset
+    return local_st
 
 client = WeChatClient(app_id, app_secret)
 wm = WeChatMessage(client)
@@ -123,6 +132,7 @@ for i in range(len(user_ids)):
     ckTime = time.localtime(int(timeInt / 1000))
     checkinTime = time.strftime("%Y-%m-%d %H:%M:%S", ckTime)
     print(time.localtime(int(timeInt / 1000)))
+    utc2local()
     leftDays = get_leftdays()
     data = {
         "message": {
