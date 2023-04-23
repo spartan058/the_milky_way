@@ -3,9 +3,8 @@ import math
 import random
 import requests
 import json
-import time
 
-from datetime import date, datetime
+from datetime import date, datetime, timezone, timedelta
 from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
 
@@ -87,7 +86,7 @@ def check_in():
     checkinTime = res['list'][0]['time']
     return message, checkinTime
 
-# 签到
+# 获取剩余天数
 def get_leftdays():
     url = "https://glados.rocks/api/user/status"
     headers = {
@@ -96,17 +95,6 @@ def get_leftdays():
     res = requests.get(url,headers = headers).json()
     leftDays = res['data']['leftDays']
     return leftDays
-
-def utc2local():
-    now_stamp = 1681453752005 / 1000
-    local_time = datetime.fromtimestamp(now_stamp)
-    utc_time = datetime.utcfromtimestamp(now_stamp)
-    offset = local_time - utc_time
-    print(local_time)
-    print(utc_time)
-    print(offset)
-    local_st = offset
-    return local_st
 
 client = WeChatClient(app_id, app_secret)
 wm = WeChatMessage(client)
@@ -129,11 +117,9 @@ for i in range(len(user_ids)):
     # if get_solary(solarys[i]) == 0:
     #     data["solary"]['value'] = "今天发工资啦，快去犒劳一下自己吧"
     message, timeStr = check_in()
-    timeInt = int(timeStr)
-    ckTime = time.localtime(int(timeInt / 1000))
-    checkinTime = time.strftime("%Y-%m-%d %H:%M:%S", ckTime)
-    print(time.localtime(int(timeInt / 1000)))
-    utc2local()
+    ckUTCTime = datetime.utcfromtimestamp(int(timeStr) / 1000)
+    ckTime = ckUTCTime.astimezone(timezone(timedelta(hours = 8)))
+    checkinTime = ckTime.strftime("%Y-%m-%d %H:%M:%S")
     leftDays = get_leftdays()
     data = {
         "message": {
